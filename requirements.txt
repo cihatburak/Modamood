@@ -1,0 +1,20 @@
+# Core Web Framework
+fastapi==0.109.2
+uvicorn==0.27.1
+python-multipart==0.0.9
+requests==2.31.0
+python-dotenv==1.0.1
+watchfiles==0.21.0
+
+# Frontend
+streamlit
+
+# AI/ML - Local Models
+torch
+transformers
+diffusers
+accelerate
+Pillow
+
+# HuggingFace API (for Llama summarization)
+huggingface_hub

@@ -1,0 +1,26 @@
+ModaMood Development Summary
+=============================
+
+ModaMood is an AI-powered co-creative fashion generator that analyzes moodboard images and generates outfit concepts.
+
+MODELS USED:
+- Image Captioning: Local BLIP (Salesforce/blip-image-captioning-base) - runs entirely on device
+- Aesthetic Synthesis: Llama 3 (meta-llama/Meta-Llama-3-8B-Instruct) via HuggingFace Inference API
+- Image Generation: Local SD Turbo (stabilityai/sd-turbo) - runs on device using Metal (MPS) acceleration
+
+PROBLEMS ENCOUNTERED:
+1. Hugging Face image-to-text API deprecated (410 Gone error) - switched to local BLIP model
+2. Gemini Vision API quota exhausted (429 error) - abandoned in favor of local BLIP
+3. HuggingFace SDXL API quota exhausted (402 Payment Required) - switched to local SD Turbo
+4. Llama 3 summarization API quota exhausted - implemented smart fallback with text prepending
+5. Gender not reflected in generated images - added explicit gender parameters to generation prompt
+6. Refinement commands not applied - prompt exceeded CLIP's 77 token limit; fixed by prepending changes
+
+ALTERNATIVE APPROACHES:
+- Local models (BLIP, SD Turbo) eliminate API dependency and quota issues
+- MPS acceleration on M3 Mac provides good performance (~10-20 sec/image)
+- Simple text manipulation serves as fallback when Llama API is unavailable
+- Short, focused prompts stay within CLIP token limits
+
+CURRENT STATUS:
+All core features work with local models. Image captioning and generation run offline. Only aesthetic summarization and refinement rely on external API (with working fallbacks).
